@@ -1,0 +1,66 @@
+Changes:
+
+1. The comets are now 12 sided shapes instead of circles.
+2. The comets have random rotational velocites.
+3. The game spawns random comets itself, so comets.cfg
+is no longer necessary.
+4. When all the comets are destroyed, the game moves to a new
+level, displayed in the upper right, spawning level+1 large
+comets.
+5. The ship isn't just a circle now.
+6. The firing rate is significantly decreased.
+7. The player gets a score, displayed at the top middle,
+for each comet destroyed.
+8. The game keeps track of high scores with a text file,
+which it will open and fill with presets by itself.
+9. A box will allow the player to enter their name if they
+get a new high score.
+10. The player has a certain amount of lives, with the extra
+lives displayed in the top left, and gets another every 20,000
+points (to a maximum of 5 extra).
+11. 'Down' reverses the ship.
+12. 'p' pauses the ship.
+
+Implementation
+
+1. Each comet has 12 random angles (0 - 2pi) and 12 random
+distances ( random * (r/10) + 9r/10) and converts them to
+Point2Ds based on the center.
+2. Each move() the angle array increments by this rotational
+velocity.
+3. Simply used random() for the velocity and positions, making
+sure the starting was at least a certain distance from the
+center.
+4. After each frame it checks comets.isEmpty() and if so
+erases everything, increments the level, and generates the
+new comets.
+5. I came up with (probably stole) a certain design and used
+angles and distances with drawLine() to make it look right,
+making sure to change those angles as the ship turned as well.
+6. In the if(fireHeld) statement I added a check, based on
+timeShot(), to make sure a minimum number of frames had passed
+before implementing fire().
+7.Each time a comet dies the score increments, based on the
+comets size, and I just draw that at the top.
+8. I have it open the file at the start and copy the info into
+the arrays for the names and scores, or fill those arrays with
+presets if there isn't a file. At the end of a game, it
+compares the scores to see if the player beat them, and then
+makes the new arrays as necessary.
+9. After the check for a new high score, I implement a simple
+text-accepting box and write that into the correct place.
+10. I just have the score necessary for the next life be 20000
+times the livesAdded, so they get a new life for every 20000
+points, and simply decrease that every time the ship's ready
+to spawn.
+11. I just copied your accelerateHeld() sequences, simply
+making a decelerate() method that decremented the speed.
+12. I included a response to the 'p' button, and made the game
+only play through frames if it wasn't paused. I also had to
+switch measuring the time of death and the last time shot
+from the absolute time to incrementing a variable with each
+frame.
+
+Final Note: For some reason the angles don't quite sort
+properly every time, or something, causing the comets to look
+a little weird. I can't really figure out why that is so.

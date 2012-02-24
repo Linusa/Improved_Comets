@@ -1,0 +1,6 @@
+This was an improved version of the Comets game that I made. I added lives, levels,
+scores, and shapes. Every level, more Comets spawn. Also, small Comets only have a chance
+to be destroyed by each shot, and larger comets take more shots. The fire rate is slowed
+significantly. The ship and comets have much more interesting shapes. The game will save
+a file containing the 5 highest scores and let players enter their name if they get onto
+the scoreboard. The file will be initialized with presets.
